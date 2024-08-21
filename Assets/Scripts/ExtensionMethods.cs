@@ -3,6 +3,11 @@ using UnityEngine;
 
 public static class ExtensionMethods
 {
+    private const float BackwardDegrees = 180f;
+
+    private static readonly Quaternion s_ForwardRotation = Quaternion.Euler(0f, 0f, 0f);
+    private static readonly Quaternion s_BackwardRotation = Quaternion.Euler(0f, BackwardDegrees, 0f);
+
     private static readonly System.Random s_random = new();
 
     public static void HideWarning(this UniTask uniTask) { }
@@ -15,20 +20,12 @@ public static class ExtensionMethods
 
     public static bool TryFlip(this Transform transform, float velocityX)
     {
-        const float BackwardDegrees = 180f;
-
         bool isFliped = false;
 
         if (velocityX > 0)
-        {
-            Quaternion forwardRotation = Quaternion.Euler(0f, 0f, 0f);
-            Flip(transform, forwardRotation, out isFliped);
-        }
+            Flip(transform, s_ForwardRotation, out isFliped);
         else if (velocityX < 0)
-        {
-            Quaternion backwardRotation = Quaternion.Euler(0f, BackwardDegrees, 0f);
-            Flip(transform, backwardRotation, out isFliped);
-        }
+            Flip(transform, s_BackwardRotation, out isFliped);
 
         return isFliped;
     }
