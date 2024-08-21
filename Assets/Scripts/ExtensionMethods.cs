@@ -20,19 +20,14 @@ public static class ExtensionMethods
 
     public static bool TryFlip(this Transform transform, float velocityX)
     {
-        bool isFliped = false;
-
         if (velocityX > 0)
-            Flip(transform, s_ForwardRotation, out isFliped);
+            Flip(transform, s_ForwardRotation);
         else if (velocityX < 0)
-            Flip(transform, s_BackwardRotation, out isFliped);
+            Flip(transform, s_BackwardRotation);
 
-        return isFliped;
+        return velocityX != 0;
     }
 
-    private static void Flip(Transform transform, Quaternion quaternionToSet, out bool isFliped)
-    {
+    private static void Flip(Transform transform, Quaternion quaternionToSet) => 
         transform.rotation = quaternionToSet;
-        isFliped = true;
-    }
 }
