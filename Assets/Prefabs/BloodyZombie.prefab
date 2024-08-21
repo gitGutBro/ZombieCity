@@ -184,10 +184,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 199470804cd0fdd43a7f28ed00412c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <CharacterData>k__BackingField: {fileID: 11400000, guid: 1d1145480716d4941b112947cf1a999f, type: 2}
   _targetMask:
     serializedVersion: 2
     m_Bits: 128
-  _targetTransform: {fileID: 1753024344468300985, guid: f7dbf4f9efdd25842a50f21edcd52621, type: 3}
 --- !u!1 &8463903794125261581
 GameObject:
   m_ObjectHideFlags: 0

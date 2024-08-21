@@ -15,7 +15,11 @@ public class PlayerCharacter : Character
     {
         _mover.Init(GetComponent<Rigidbody2D>());
         _animationSwitcher = new(GetComponent<Animator>());
+        _shooter.Init();
     }
+
+    private void Start() => 
+        _mover.SetSpeed(CharacterData.Speed);
 
     private void Update()
     {
@@ -29,12 +33,6 @@ public class PlayerCharacter : Character
 
         if (_isShooting == false)
             _mover.Move(_direction);    
-    }
-
-    public void Init(float speed)
-    {
-        _shooter.Init();
-        _mover.SetSpeed(speed);
     }
 
     public void SetDirection(float direction)

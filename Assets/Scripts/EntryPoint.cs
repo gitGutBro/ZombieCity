@@ -9,38 +9,30 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private BadlyHurtZombi _badlyHurtZombiPrefab;
     [SerializeField] private BloodyZombi _bloodyZombiPrefab;
     [SerializeField] private FastZombi _fastZombiPrefab;
-
-    [Header("Characters Data")]
-    [SerializeField] private CharacterPropertiesData _playerData;
-    [SerializeField] private CharacterPropertiesData _zombiData;
-    [SerializeField] private CharacterPropertiesData _hurtZombiData;
-    [SerializeField] private CharacterPropertiesData _badlyHurtZombiData;
-    [SerializeField] private CharacterPropertiesData _bloodyZombiData;
-    [SerializeField] private CharacterPropertiesData _fastZombiData;
+    [Header("Spawn Points")]
+    [SerializeField] private Transform _playerSpawnPoint;
+    [SerializeField] private Transform[] _enemySpawnPoints;
 
     private Player _player;
     private PlayerCharacter _character;
 
     private void Awake()
     {
-        _character = Instantiate(_characterPrefab);
-
-        _player = new(new PlayerInputSystem(), _character);
-    }
-
-    private void Start()
-    {
-        _character.Init(_playerData.Speed);
-
-        Instantiate(_zombiPrefab).Init(_zombiData.Speed, _character.transform);
-        Instantiate(_hurtZombiPrefab).Init(_hurtZombiData.Speed, _character.transform);
-        Instantiate(_badlyHurtZombiPrefab).Init(_badlyHurtZombiData.Speed, _character.transform);
-        Instantiate(_bloodyZombiPrefab).Init(_bloodyZombiData.Speed, _character.transform);
-        Instantiate(_fastZombiPrefab).Init(_fastZombiData.Speed, _character.transform);
+        _character = Instantiate(_characterPrefab, _playerSpawnPoint.position, Quaternion.identity);
+        _player = new Player(new PlayerInputSystem(), _character);
     }
 
     private void OnEnable() => 
-        _player.Enable();   
+        _player.Enable();
+
+    private void Start()
+    {
+        Instantiate(_zombiPrefab, _enemySpawnPoints.GetRandom().position, Quaternion.identity).SetTarget(_character.transform);
+        Instantiate(_hurtZombiPrefab, _enemySpawnPoints.GetRandom().position, Quaternion.identity).SetTarget(_character.transform);
+        Instantiate(_badlyHurtZombiPrefab, _enemySpawnPoints.GetRandom().position, Quaternion.identity).SetTarget(_character.transform);
+        Instantiate(_bloodyZombiPrefab, _enemySpawnPoints.GetRandom().position, Quaternion.identity).SetTarget(_character.transform);
+        Instantiate(_fastZombiPrefab, _enemySpawnPoints.GetRandom().position, Quaternion.identity).SetTarget(_character.transform);
+    }
 
     private void OnDisable() => 
         _player.Disable();

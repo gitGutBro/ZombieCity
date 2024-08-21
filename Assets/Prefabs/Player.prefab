@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7dc9799c5002c94e909bc90f5bca123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <CharacterData>k__BackingField: {fileID: 11400000, guid: 6819fab121a6acb429a69709ae23f12c, type: 2}
   _mover:
     _groundMask:
       serializedVersion: 2

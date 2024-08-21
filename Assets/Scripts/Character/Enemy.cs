@@ -8,13 +8,16 @@ public abstract class Enemy : Character
     private Transform _targetTransform;
     private EnemyMover _mover;
 
-    private float TargetDirection => _targetTransform.position.x - transform.position.x;
+    private float TargetDirection => (_targetTransform.position - transform.position).normalized.x;
 
     private void Awake() => 
-        _mover = new();
+        _mover = new EnemyMover();
 
-    private void Start() => 
+    private void Start()
+    {
         _mover.Init(GetComponent<Rigidbody2D>());
+        _mover.SetSpeed(CharacterData.Speed);
+    }
 
     private void Update()
     {
@@ -33,9 +36,6 @@ public abstract class Enemy : Character
         }
     }
 
-    public void Init(float speed, Transform targetTransform)
-    {
-        _mover.SetSpeed(speed);
+    public void SetTarget(Transform targetTransform) => 
         _targetTransform = targetTransform;
-    }
 }
