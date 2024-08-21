@@ -4,8 +4,8 @@ using UnityEngine;
 public abstract class Enemy : Character
 {
     [SerializeField] private LayerMask _targetMask;
-    [SerializeField] private Transform _targetTransform;
 
+    private Transform _targetTransform;
     private EnemyMover _mover;
 
     private float TargetDirection => _targetTransform.position.x - transform.position.x;
@@ -33,6 +33,9 @@ public abstract class Enemy : Character
         }
     }
 
-    public void Init(float speed) =>
-        _mover.SetSpeed(speed); 
+    public void Init(float speed, Transform targetTransform)
+    {
+        _mover.SetSpeed(speed);
+        _targetTransform = targetTransform;
+    }
 }

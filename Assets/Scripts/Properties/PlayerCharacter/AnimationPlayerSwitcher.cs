@@ -14,9 +14,6 @@ public class AnimationPlayerSwitcher
     public void SetSpeed(float speed) =>
         _animator.SetFloat(Speed, Mathf.Abs(speed));
 
-    public void SetGrounded(bool state) =>
-        _animator.SetBool(IsGrounded, state);
-
     public void SetShoot(bool state) =>
         _animator.SetBool(IsShooting, state);
 }

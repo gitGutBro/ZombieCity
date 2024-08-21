@@ -32,11 +32,11 @@ public class EntryPoint : MonoBehaviour
     {
         _character.Init(_playerData.Speed);
 
-        Instantiate(_zombiPrefab).Init(_zombiData.Speed);
-        Instantiate(_hurtZombiPrefab).Init(_hurtZombiData.Speed);
-        Instantiate(_badlyHurtZombiPrefab).Init(_badlyHurtZombiData.Speed);
-        Instantiate(_bloodyZombiPrefab).Init(_bloodyZombiData.Speed);
-        Instantiate(_fastZombiPrefab).Init(_fastZombiData.Speed);
+        Instantiate(_zombiPrefab).Init(_zombiData.Speed, _character.transform);
+        Instantiate(_hurtZombiPrefab).Init(_hurtZombiData.Speed, _character.transform);
+        Instantiate(_badlyHurtZombiPrefab).Init(_badlyHurtZombiData.Speed, _character.transform);
+        Instantiate(_bloodyZombiPrefab).Init(_bloodyZombiData.Speed, _character.transform);
+        Instantiate(_fastZombiPrefab).Init(_fastZombiData.Speed, _character.transform);
     }
 
     private void OnEnable() => 
