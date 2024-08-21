@@ -23,8 +23,6 @@ public class PlayerCharacter : Character
 
     private void Update()
     {
-        _shooter.Update(Time.deltaTime);
-
         if (_isShooting)
         {
             _mover.ResetVelocity();
