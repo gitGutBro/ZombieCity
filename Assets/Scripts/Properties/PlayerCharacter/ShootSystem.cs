@@ -6,31 +6,25 @@ public class ShootSystem
 {
     private const int StartCountPoolBullets = 10;
 
-    [SerializeField][Range(0.2f, 1f)] private float _bulletSpawnDelay;
+    [SerializeField][Range(0.1f, 0.4f)] private float _bulletSpawnDelay;
     [Header("Prefabs")]
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private Transform _firePoint;
 
-    private float _currentBulletDelay;
+    private float _cooldown;
     private ObjectPool<Bullet> _bulletsPool;
 
-    private bool CanSpawnBullet => _currentBulletDelay >= _bulletSpawnDelay;
-
-    public void Update(float deltaTime)
-    {
-        if (CanSpawnBullet == false)
-            _currentBulletDelay += deltaTime;
-    }
+    private bool CanShoot => Time.time >= _cooldown;
 
     public void Shoot()
     {
-        if (CanSpawnBullet == false)
+        if (CanShoot == false)
             return;
+
+        _cooldown = Time.time + _bulletSpawnDelay;
 
         Bullet bullet = Preload();
         bullet.SetDirection(_firePoint.right);
-
-        _currentBulletDelay = 0;
     }
 
     public Bullet Preload() => 
