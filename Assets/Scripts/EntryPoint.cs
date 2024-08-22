@@ -27,13 +27,17 @@ public class EntryPoint : MonoBehaviour
 
     private void Start()
     {
-        Instantiate(_zombiPrefab, _enemySpawnPoints.GetRandom().position, Quaternion.identity).SetTarget(_character.transform);
-        Instantiate(_hurtZombiPrefab, _enemySpawnPoints.GetRandom().position, Quaternion.identity).SetTarget(_character.transform);
-        Instantiate(_badlyHurtZombiPrefab, _enemySpawnPoints.GetRandom().position, Quaternion.identity).SetTarget(_character.transform);
-        Instantiate(_bloodyZombiPrefab, _enemySpawnPoints.GetRandom().position, Quaternion.identity).SetTarget(_character.transform);
-        Instantiate(_fastZombiPrefab, _enemySpawnPoints.GetRandom().position, Quaternion.identity).SetTarget(_character.transform);
+        SpawnEnemy(_zombiPrefab, _enemySpawnPoints.GetRandom(), _character.transform);
+        SpawnEnemy(_hurtZombiPrefab, _enemySpawnPoints.GetRandom(), _character.transform);
+        SpawnEnemy(_badlyHurtZombiPrefab, _enemySpawnPoints.GetRandom(), _character.transform);
+        SpawnEnemy(_bloodyZombiPrefab, _enemySpawnPoints.GetRandom(), _character.transform);
+        SpawnEnemy(_fastZombiPrefab, _enemySpawnPoints.GetRandom(), _character.transform);
     }
 
     private void OnDisable() => 
         _player.Disable();
+
+    private void SpawnEnemy(Enemy enemyPrefab, Transform spawnPoint, Transform targetTransform) => 
+        Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity).
+        SetTarget(targetTransform);
 }
