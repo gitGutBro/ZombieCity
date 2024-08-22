@@ -32,7 +32,6 @@ public abstract class Enemy : Character
         if (collision.TryGetComponent(out Bullet bullet))
         {
             gameObject.SetActive(false);
-            bullet.gameObject.SetActive(false);
         }
     }
 
