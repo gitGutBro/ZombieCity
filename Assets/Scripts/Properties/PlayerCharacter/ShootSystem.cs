@@ -22,9 +22,10 @@ public class ShootSystem
         _cooldown = Time.time + _bulletSpawnDelay;
 
         Bullet bullet = _bulletsPool.Get<Bullet>();
+        bullet.Transform.position = _firePoint.position;
         bullet.SetDirection(_firePoint.right);
     }
 
     public void Init() => 
-        _bulletsPool = new ObjectPool(new BulletFactory(_bulletPrefab), _firePoint);
+        _bulletsPool = new ObjectPool(new BulletFactory(_bulletPrefab));
 }

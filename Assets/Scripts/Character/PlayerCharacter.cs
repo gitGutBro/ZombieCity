@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -10,6 +11,8 @@ public class PlayerCharacter : Character
     private bool _isShooting;
     private float _direction;
     private AnimationPlayerSwitcher _animationSwitcher;
+
+    public event Action Died;
 
     protected override void Awake()
     {

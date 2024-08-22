@@ -1,4 +1,4 @@
 ﻿public interface IPoolReturner<T>
 {
-    void Return(T bullet);
+    void Return(T poolObject);
 }

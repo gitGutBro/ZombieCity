@@ -4,25 +4,20 @@ using UnityEngine;
 
 public class ObjectPool : IPoolReturner<IPoolObject> 
 {
-    private readonly Queue<IPoolObject> _pool;
-
-    private readonly Transform _spawnPoint;
     private readonly IPoolObjectFactory _poolObjectFactory;
 
-    public ObjectPool(IPoolObjectFactory poolObjectFactory, Transform spawnPoint)
+    private readonly Queue<IPoolObject> _pool;
+
+    public ObjectPool(IPoolObjectFactory poolObjectFactory)
     {
-        _poolObjectFactory = poolObjectFactory ?? throw new ArgumentNullException(nameof(poolObjectFactory));
-
         _pool = new();
-
-        _spawnPoint = spawnPoint != null ? spawnPoint : throw new ArgumentNullException(nameof(spawnPoint));
+        _poolObjectFactory = poolObjectFactory ?? throw new ArgumentNullException(nameof(poolObjectFactory));
     }
 
     public T Get<T>() where T : IPoolObject
     {
         IPoolObject item = _pool.Count > 0 ? _pool.Dequeue() : Preload();
         item.Transform.gameObject.SetActive(true);
-        item.Transform.position = _spawnPoint.position;
 
         return (T)item;
     }
@@ -43,7 +38,7 @@ public class ObjectPool : IPoolReturner<IPoolObject>
     public IPoolObject Preload()
     {
         IPoolObject poolObject = _poolObjectFactory.Create();
-        poolObject.InitReturner(this);
+        poolObject.SetReturner(this);
 
         return poolObject;
     }

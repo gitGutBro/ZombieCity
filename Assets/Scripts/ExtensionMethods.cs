@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class ExtensionMethods
 {
@@ -9,8 +8,6 @@ public static class ExtensionMethods
     private static readonly Quaternion s_BackwardRotation = Quaternion.Euler(0f, BackwardDegrees, 0f);
 
     private static readonly System.Random s_random = new();
-
-    public static void HideWarning(this UniTask uniTask) { }
 
     public static void SetVelocity(this Rigidbody2D rigidbody2D, float x, float y) => 
         rigidbody2D.velocity = new(x, y);

@@ -3,5 +3,5 @@
 public interface IPoolObject
 {
     Transform Transform { get; }
-    void InitReturner(IPoolReturner<IPoolObject> returner);
+    void SetReturner(IPoolReturner<IPoolObject> returner);
 }

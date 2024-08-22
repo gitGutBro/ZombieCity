@@ -1,20 +1,23 @@
 using UnityEngine;
+using System.Linq;
 
 public class EntryPoint : MonoBehaviour
 {
     [Header("Characters")]
     [SerializeField] private PlayerCharacter _characterPrefab;
-    [SerializeField] private Zombi _zombiPrefab;
-    [SerializeField] private HurtZombi _hurtZombiPrefab;
-    [SerializeField] private BadlyHurtZombi _badlyHurtZombiPrefab;
-    [SerializeField] private BloodyZombi _bloodyZombiPrefab;
-    [SerializeField] private FastZombi _fastZombiPrefab;
+    [SerializeField] private Enemy[] _enemiesPrefabs;
     [Header("Spawn Points")]
     [SerializeField] private Transform _playerSpawnPoint;
     [SerializeField] private Transform[] _enemySpawnPoints;
+    [Space]
+    [SerializeField] private HealthBar _healthBarPrefab;
+    [SerializeField] private Canvas _gameOverCanvasPrefab;
 
     private Player _player;
     private PlayerCharacter _character;
+    private PlayerDeathNotifier _notifier;
+    
+    private EnemySpawner _enemySpawner;
 
     private void Awake()
     {
@@ -27,17 +30,20 @@ public class EntryPoint : MonoBehaviour
 
     private void Start()
     {
-        SpawnEnemy(_zombiPrefab, _enemySpawnPoints.GetRandom(), _character.transform);
-        SpawnEnemy(_hurtZombiPrefab, _enemySpawnPoints.GetRandom(), _character.transform);
-        SpawnEnemy(_badlyHurtZombiPrefab, _enemySpawnPoints.GetRandom(), _character.transform);
-        SpawnEnemy(_bloodyZombiPrefab, _enemySpawnPoints.GetRandom(), _character.transform);
-        SpawnEnemy(_fastZombiPrefab, _enemySpawnPoints.GetRandom(), _character.transform);
+        _enemySpawner = 
+            new EnemySpawner(GetSpawnPointsPositions(), new ObjectPool(
+            new EnemyFactory(_enemiesPrefabs, _character.Transform, 
+            new HealthFactory(_healthBarPrefab))));
+
+        _notifier = new PlayerDeathNotifier(_character, _enemySpawner, _gameOverCanvasPrefab);
     }
 
-    private void OnDisable() => 
+    private void OnDisable()
+    {
         _player.Disable();
+        _enemySpawner.Disable();
+    }
 
-    private void SpawnEnemy(Enemy enemyPrefab, Transform spawnPoint, Transform targetTransform) => 
-        Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity).
-        SetTarget(targetTransform);
+    private Vector3[] GetSpawnPointsPositions() => 
+        _enemySpawnPoints.Select(n => n.position).ToArray();
 }

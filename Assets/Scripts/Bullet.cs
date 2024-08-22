@@ -10,10 +10,14 @@ public class Bullet : MonoBehaviour, IPoolObject
     private Transform _transform;
     private IPoolReturner<IPoolObject> _returner;
 
+    public int Damage { get; private set; }
     public Transform Transform => _transform;
 
     private void Awake() => 
         _transform = transform;
+
+    private void Start() => 
+        Damage = 1;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -33,6 +37,6 @@ public class Bullet : MonoBehaviour, IPoolObject
     public void ReturnInPool() =>
         _returner.Return(this);
 
-    public void InitReturner(IPoolReturner<IPoolObject> returner) => 
+    public void SetReturner(IPoolReturner<IPoolObject> returner) => 
         _returner = returner ?? throw new ArgumentNullException();
 }
