@@ -9,13 +9,8 @@ public class Bullet : MonoBehaviour
     private Vector2 _direction;
     private Action<Bullet> _returnInPool;
 
-    public event Action<Bullet> ReturnInPool;
-
     private void Start() => 
         _rigidbody2D.velocity = _direction * _speed;
-
-    private void OnDisable() => 
-        ReturnInPool -= _returnInPool;
 
     public void SetDirection(Vector2 direction)
     {
@@ -25,9 +20,9 @@ public class Bullet : MonoBehaviour
         _direction = direction;
     }
 
-    public void SetPoolAction(Action<Bullet> returnInPool)
-    {
+    public void SetPoolAction(Action<Bullet> returnInPool) => 
         _returnInPool = returnInPool ?? throw new ArgumentNullException();
-        ReturnInPool += returnInPool;
-    }
+
+    public void ReturnInPool() =>
+        _returnInPool.Invoke(this);
 }
