@@ -25,6 +25,9 @@ public class Bullet : MonoBehaviour
         _direction = direction;
     }
 
-    public void SetPoolAction(Action<Bullet> returnInPool) => 
+    public void SetPoolAction(Action<Bullet> returnInPool)
+    {
         _returnInPool = returnInPool ?? throw new ArgumentNullException();
+        ReturnInPool += returnInPool;
+    }
 }
