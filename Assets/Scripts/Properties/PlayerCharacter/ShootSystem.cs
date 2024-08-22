@@ -23,7 +23,9 @@ public class ShootSystem
 
         _cooldown = Time.time + _bulletSpawnDelay;
 
-        Bullet bullet = Preload();
+        Bullet bullet = _bulletsPool.Get();
+
+        bullet.SetPoolAction(_bulletsPool.Return);
         bullet.SetDirection(_firePoint.right);
     }
 

@@ -7,9 +7,15 @@ public class Bullet : MonoBehaviour
     [SerializeField] private Rigidbody2D _rigidbody2D;
 
     private Vector2 _direction;
+    private Action<Bullet> _returnInPool;
+
+    public event Action<Bullet> ReturnedInPool;
 
     private void Start() => 
         _rigidbody2D.velocity = _direction * _speed;
+
+    private void OnDisable() => 
+        ReturnedInPool -= _returnInPool;
 
     public void SetDirection(Vector2 direction)
     {
@@ -17,5 +23,11 @@ public class Bullet : MonoBehaviour
             throw new NullReferenceException($"Direction is null or zero: {GetType()}");
 
         _direction = direction;
+    }
+
+    public void SetPoolAction(Action<Bullet> returnInPool)
+    {
+        _returnInPool = returnInPool;
+        ReturnedInPool = returnInPool;
     }
 }
