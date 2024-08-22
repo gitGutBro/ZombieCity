@@ -1,16 +1,25 @@
 ﻿using System;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour 
+public class Bullet : MonoBehaviour, IPoolObject
 {
     [SerializeField][Range(3f, 10f)] private float _speed;
     [SerializeField] private Rigidbody2D _rigidbody2D;
 
     private Vector2 _direction;
-    private Action<Bullet> _returnInPool;
+    private Transform _transform;
+    private IPoolReturner<IPoolObject> _returner;
 
-    private void Start() => 
-        _rigidbody2D.velocity = _direction * _speed;
+    public Transform Transform => _transform;
+
+    private void Awake() => 
+        _transform = transform;
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out IObsctacle obsctacle))
+            ReturnInPool();
+    }
 
     public void SetDirection(Vector2 direction)
     {
@@ -18,11 +27,12 @@ public class Bullet : MonoBehaviour
             throw new NullReferenceException($"Direction is null or zero: {GetType()}");
 
         _direction = direction;
+        _rigidbody2D.velocity = _direction * _speed;
     }
 
-    public void SetPoolAction(Action<Bullet> returnInPool) => 
-        _returnInPool = returnInPool ?? throw new ArgumentNullException();
-
     public void ReturnInPool() =>
-        _returnInPool.Invoke(this);
+        _returner.Return(this);
+
+    public void InitReturner(IPoolReturner<IPoolObject> returner) => 
+        _returner = returner ?? throw new ArgumentNullException();
 }

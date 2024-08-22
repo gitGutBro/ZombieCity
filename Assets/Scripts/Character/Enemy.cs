@@ -1,17 +1,21 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public abstract class Enemy : Character
+public abstract class Enemy : Character, IObsctacle
 {
     [SerializeField] private LayerMask _targetMask;
 
     private Transform _targetTransform;
     private EnemyMover _mover;
 
-    private float TargetDirection => (_targetTransform.position - transform.position).normalized.x;
+    private float TargetDirection => (_targetTransform.position - Transform.position).normalized.x;
 
-    private void Awake() => 
+    protected override void Awake()
+    {
+        base.Awake();
+
         _mover = new EnemyMover();
+    }
 
     private void Start()
     {
@@ -21,19 +25,16 @@ public abstract class Enemy : Character
 
     private void Update()
     {
-        if (transform.TryFlip(TargetDirection))
+        if (Transform.TryFlip(TargetDirection))
             _mover.ResetVelocity();
 
         _mover.Move(TargetDirection);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.TryGetComponent(out Bullet bullet))
-        {
+        if (collision.gameObject.TryGetComponent(out Bullet bullet))
             gameObject.SetActive(false);
-            bullet.ReturnInPool();
-        }
     }
 
     public void SetTarget(Transform targetTransform) => 

@@ -5,7 +5,7 @@ public abstract class CharacterMover
     protected float Speed { get; private set; }
     protected Rigidbody2D Rigidbody2D { get; private set; }
 
-    public virtual void Move(float direction) =>
+    public virtual void Move(float direction) => 
         Rigidbody2D.SetVelocity(direction * Speed, Rigidbody2D.velocity.y);
 
     public void ResetVelocity() =>

@@ -11,8 +11,10 @@ public class PlayerCharacter : Character
     private float _direction;
     private AnimationPlayerSwitcher _animationSwitcher;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         _mover.Init(GetComponent<Rigidbody2D>());
         _animationSwitcher = new(GetComponent<Animator>());
         _shooter.Init();
