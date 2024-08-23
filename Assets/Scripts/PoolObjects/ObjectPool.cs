@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ObjectPool : IPoolReturner<IPoolObject> 
 {
     private readonly IPoolObjectFactory _poolObjectFactory;
-
     private readonly Queue<IPoolObject> _pool;
 
     public ObjectPool(IPoolObjectFactory poolObjectFactory)
@@ -24,9 +22,11 @@ public class ObjectPool : IPoolReturner<IPoolObject>
 
     public void Return(IPoolObject item)
     {
-        item.Transform.gameObject.SetActive(false);
+        if (_pool.Contains(item))
+            return;
 
         _pool.Enqueue(item);
+        item.Transform.gameObject.SetActive(false);
     }
 
     public void ReturnAll()

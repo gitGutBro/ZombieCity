@@ -16,13 +16,10 @@ public class EnemyFactory : IPoolObjectFactory
 
     public IPoolObject Create()
     {
-        Enemy enemy = GameObject.Instantiate(GetRandom());
+        Enemy enemy = GameObject.Instantiate(_enemiesPrefabs.GetRandom());
         Health health = _healthFactory.Create(enemy.CharacterData.MaxHealth, enemy.transform);
         enemy.Init(_targetTransform, health);
 
         return enemy;
     }
-
-    private Enemy GetRandom() =>
-        _enemiesPrefabs[UnityEngine.Random.Range(0, _enemiesPrefabs.Length)];
 }

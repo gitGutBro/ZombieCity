@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384328fbc58cd334f9b43c296e75209d, type: 3}
   m_Name: BadlyHurtZombiData
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 5
+  <Speed>k__BackingField: 1.666667
+  <MaxHealth>k__BackingField: 3

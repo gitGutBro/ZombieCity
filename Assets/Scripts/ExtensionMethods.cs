@@ -15,6 +15,9 @@ public static class ExtensionMethods
     public static Transform GetRandom(this Transform[] transforms) => 
         transforms[s_random.Next(transforms.Length)];
 
+    public static Enemy GetRandom(this Enemy[] enemies) =>
+        enemies[s_random.Next(enemies.Length)];
+
     public static bool TryFlip(this Transform transform, float velocityX)
     {
         if (velocityX > 0)

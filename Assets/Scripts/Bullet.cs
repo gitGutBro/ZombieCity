@@ -19,10 +19,13 @@ public class Bullet : MonoBehaviour, IPoolObject
     private void Start() => 
         Damage = 1;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out IObsctacle obsctacle))
+        if (collision.gameObject.TryGetComponent(out Enemy enemy))
+        {
+            enemy.Health.Decrease(Damage);
             ReturnInPool();
+        }
     }
 
     public void SetDirection(Vector2 direction)

@@ -23,12 +23,6 @@ public class Health
 
     public int Current => _current;
 
-    public void OnValidate()
-    {
-        if (_current > Max)
-            _current = Max;
-    }
-
     public void Increase(int heal)
     {
         if (heal <= 0)
@@ -58,6 +52,12 @@ public class Health
             return;
         }
 
+        Changed?.Invoke(_current, Max);
+    }
+
+    public void Reset()
+    {
+        _current = Max;
         Changed?.Invoke(_current, Max);
     }
 }

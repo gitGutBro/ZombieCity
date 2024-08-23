@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 7257408449095938263}
   - component: {fileID: 4717717540810738110}
   - component: {fileID: 2526423515639821356}
+  - component: {fileID: 6796650938961106600}
   m_Layer: 6
   m_Name: BadlyHurtZombie
   m_TagString: Untagged
@@ -202,7 +203,7 @@ Rigidbody2D:
     m_Bits: 64
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &4717717540810738110
 CapsuleCollider2D:
@@ -233,11 +234,11 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.02132571, y: 0.01732665}
-  m_Size: {x: 0.4737842, y: 1.23}
+  m_Offset: {x: -0.021325707, y: 0.2375853}
+  m_Size: {x: 0.4737842, y: 0.7894826}
   m_Direction: 0
 --- !u!114 &2526423515639821356
 MonoBehaviour:
@@ -255,3 +256,49 @@ MonoBehaviour:
   _targetMask:
     serializedVersion: 2
     m_Bits: 128
+  _hitCollider: {fileID: 7472283432728142029}
+--- !u!61 &6796650938961106600
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5972550608304826752}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.06587958, y: -0.38189244}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.391239, y: 0.48591328}
+    oldSize: {x: 0.66, y: 1.23}
+    newSize: {x: 0.66, y: 1.23}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.28556, y: 0.43156195}
+  m_EdgeRadius: 0

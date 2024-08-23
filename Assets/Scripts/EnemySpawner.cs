@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner
 {
-    private const float Cooldown = 0.55f;
+    private const float Cooldown = 1f;
 
     private readonly Vector3[] _spawnPoints;
     private readonly ObjectPool _objectPool;

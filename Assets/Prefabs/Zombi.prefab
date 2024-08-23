@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 1345004798490312772}
   - component: {fileID: 198326311336294438}
   - component: {fileID: 8212883872806794154}
+  - component: {fileID: 4121738911265477167}
   m_Layer: 6
   m_Name: Zombi
   m_TagString: Untagged
@@ -206,11 +207,11 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01734334, y: 0.0105316}
-  m_Size: {x: 0.456271, y: 1.24}
+  m_Offset: {x: -0.017343342, y: 0.23011756}
+  m_Size: {x: 0.456271, y: 0.800828}
   m_Direction: 0
 --- !u!50 &198326311336294438
 Rigidbody2D:
@@ -237,7 +238,7 @@ Rigidbody2D:
     m_Bits: 64
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &8212883872806794154
 MonoBehaviour:
@@ -255,3 +256,49 @@ MonoBehaviour:
   _targetMask:
     serializedVersion: 2
     m_Bits: 128
+  _hitCollider: {fileID: 2762017080047064973}
+--- !u!61 &4121738911265477167
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9104363266361852219}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.08889258, y: -0.39089918}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.3663863, y: 0.4915068}
+    oldSize: {x: 0.67, y: 1.24}
+    newSize: {x: 0.67, y: 1.24}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.31317258, y: 0.43713856}
+  m_EdgeRadius: 0

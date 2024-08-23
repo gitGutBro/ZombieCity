@@ -11,7 +11,8 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private Transform[] _enemySpawnPoints;
     [Space]
     [SerializeField] private HealthBar _healthBarPrefab;
-    [SerializeField] private Canvas _gameOverCanvasPrefab;
+    [SerializeField] private Vector2 _healthBarOffset;
+    //[SerializeField] private Canvas _gameOverCanvasPrefab;
 
     private Player _player;
     private PlayerCharacter _character;
@@ -28,14 +29,16 @@ public class EntryPoint : MonoBehaviour
     private void OnEnable() => 
         _player.Enable();
 
-    private void Start()
+    private async void Start()
     {
         _enemySpawner = 
             new EnemySpawner(GetSpawnPointsPositions(), new ObjectPool(
             new EnemyFactory(_enemiesPrefabs, _character.Transform, 
-            new HealthFactory(_healthBarPrefab))));
+            new HealthFactory(_healthBarPrefab, _healthBarOffset))));
 
-        _notifier = new PlayerDeathNotifier(_character, _enemySpawner, _gameOverCanvasPrefab);
+        //_notifier = new PlayerDeathNotifier(_character, _enemySpawner, _gameOverCanvasPrefab);
+
+        _enemySpawner.SpawnAsync();
     }
 
     private void OnDisable()

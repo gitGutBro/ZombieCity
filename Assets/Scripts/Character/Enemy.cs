@@ -2,15 +2,16 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public abstract class Enemy : Character, IObsctacle, IPoolObject
+public abstract class Enemy : Character, IObstacle, IPoolObject
 {
     [SerializeField] private LayerMask _targetMask;
+    [SerializeField] private Collider2D _hitCollider;
 
-    private Health _health;
     private Transform _targetTransform;
     private EnemyMover _mover;
     private IPoolReturner<IPoolObject> _returner;
 
+    public Health Health { get; private set; }
     private float TargetDirection => (_targetTransform.position - Transform.position).normalized.x;
 
     protected override void Awake()
@@ -34,23 +35,21 @@ public abstract class Enemy : Character, IObsctacle, IPoolObject
         _mover.Move(TargetDirection);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.TryGetComponent(out Bullet bullet))
-            _health.Decrease(bullet.Damage);
-    }
-
     public void Init(Transform targetTransform, Health health)
     {
-        _targetTransform = targetTransform != null ? targetTransform : throw new System.ArgumentNullException(nameof(targetTransform));
-        _health = health ?? throw new System.ArgumentNullException(nameof(health));
+        _targetTransform = targetTransform != null ? targetTransform : throw new ArgumentNullException(nameof(targetTransform));
+        Health = health ?? throw new ArgumentNullException(nameof(health));
 
-        _health.Died += OnDied;
+        Health.Died += OnDied;
     }
 
     public void SetReturner(IPoolReturner<IPoolObject> returner) => 
         _returner = returner ?? throw new ArgumentNullException(nameof(returner));
 
-    private void OnDied() => 
+    private void OnDied()
+    {
+        Health.Reset();
+
         _returner.Return(this);
+    }
 }

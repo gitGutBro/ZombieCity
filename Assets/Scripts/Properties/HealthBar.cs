@@ -9,7 +9,7 @@ public class HealthBar : MonoBehaviour
 
     private Health _health;
 
-    private void OnDisable() => 
+    private void OnDestroy() => 
         _health.Changed -= OnHealthChanged;
 
     public void Init(Health health)

@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class InvisibleBorder : MonoBehaviour
+public class InvisibleBorder : MonoBehaviour, IObstacle 
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out Bullet bullet))
+        if (collision.TryGetComponent(out Bullet bullet))
             bullet.ReturnInPool();
     }
 }
